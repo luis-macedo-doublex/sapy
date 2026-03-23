@@ -1,25 +1,10 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-
-const PILLARS = [
-  {
-    number: '01',
-    title: 'Expertise Técnica',
-    text: 'Equipe multidisciplinar com décadas de atuação em projetos de automação industrial complexos.',
-  },
-  {
-    number: '02',
-    title: 'Presença Global',
-    text: 'Joint venture ibero-brasileira com capilaridade na América Latina e conexão direta com o mercado europeu.',
-  },
-  {
-    number: '03',
-    title: 'Inovação Contínua',
-    text: 'Metodologias ágeis e tecnologias emergentes aplicadas à realidade industrial de cada cliente.',
-  },
-]
+import { useLanguage } from '../contexts/LanguageContext'
 
 export function About() {
+  const { t } = useLanguage()
+  const { about } = t
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
@@ -35,7 +20,7 @@ export function About() {
         >
           <div className="w-8 h-px bg-primary" />
           <span className="font-body text-xs font-semibold tracking-[0.2em] text-primary uppercase">
-            Sobre a SAPY
+            {about.label}
           </span>
         </motion.div>
 
@@ -48,11 +33,19 @@ export function About() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="font-display text-5xl lg:text-6xl xl:text-7xl font-bold leading-none text-slate-text tracking-tight"
             >
-              UMA NOVA
-              <br />
-              <span className="outline-primary">REFERÊNCIA</span>
-              <br />
-              EM AUTOMAÇÃO
+              {about.heading.split('\n').map((line, i) =>
+                line === about.headingOutline ? (
+                  <span key={i}>
+                    <span className="outline-primary">{line}</span>
+                    <br />
+                  </span>
+                ) : (
+                  <span key={i}>
+                    {line}
+                    <br />
+                  </span>
+                )
+              )}
             </motion.h2>
 
             <motion.p
@@ -61,11 +54,7 @@ export function About() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="font-body text-base text-slate-muted leading-relaxed mt-8 max-w-md"
             >
-              A SAPY América Latina nasce da fusão entre a experiência consolidada do{' '}
-              <strong className="text-slate-text font-semibold">Grupo Savilcon</strong> — referência
-              ibérica em engenharia — e o dinamismo tecnológico da{' '}
-              <strong className="text-slate-text font-semibold">Authomathika</strong>, empresa
-              brasileira de automação industrial.
+              {about.p1}
             </motion.p>
 
             <motion.p
@@ -74,8 +63,7 @@ export function About() {
               transition={{ duration: 0.7, delay: 0.45 }}
               className="font-body text-base text-slate-muted leading-relaxed mt-4 max-w-md"
             >
-              Juntas, criam uma plataforma de alta performance para atender às demandas mais
-              exigentes do mercado industrial latino-americano.
+              {about.p2}
             </motion.p>
 
             {/* Highlight metric */}
@@ -86,15 +74,13 @@ export function About() {
               className="mt-10 pl-6 border-l-2 border-primary"
             >
               <div className="font-display text-5xl font-bold text-primary">100%</div>
-              <div className="font-body text-sm text-slate-muted mt-1">
-                foco em resultados reais e mensuráveis para o cliente
-              </div>
+              <div className="font-body text-sm text-slate-muted mt-1">{about.metric}</div>
             </motion.div>
           </div>
 
           {/* Right: pillars */}
           <div className="flex flex-col gap-0 divide-y divide-gray-100">
-            {PILLARS.map(({ number, title, text }, i) => (
+            {about.pillars.map(({ number, title, text }, i) => (
               <motion.div
                 key={number}
                 initial={{ opacity: 0, x: 30 }}

@@ -2,18 +2,27 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import logoSrc from '../images/sapyamericalatina_logo.jpeg'
+import { useLanguage } from '../contexts/LanguageContext'
+import type { Language } from '../i18n/translations'
 
-const links = [
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Empresas', href: '#empresas' },
-  { label: 'Serviços', href: '#servicos' },
-  { label: 'Diferenciais', href: '#diferenciais' },
-  { label: 'Contato', href: '#contato' },
+const LANG_OPTIONS: { code: Language; label: string }[] = [
+  { code: 'pt', label: 'PT' },
+  { code: 'es', label: 'ES' },
+  { code: 'en', label: 'EN' },
 ]
 
 export function Navbar() {
+  const { t, language, setLanguage } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  const links = [
+    { label: t.navbar.about, href: '#sobre' },
+    { label: t.navbar.companies, href: '#empresas' },
+    { label: t.navbar.services, href: '#servicos' },
+    { label: t.navbar.differentials, href: '#diferenciais' },
+    { label: t.navbar.contact, href: '#contato' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -54,6 +63,32 @@ export function Navbar() {
                 {label}
               </a>
             ))}
+
+            {/* Language switcher */}
+            <div
+              className={`flex items-center gap-px text-xs font-semibold tracking-wider border ${
+                scrolled ? 'border-gray-200' : 'border-white/30'
+              }`}
+            >
+              {LANG_OPTIONS.map(({ code, label }) => (
+                <button
+                  key={code}
+                  onClick={() => setLanguage(code)}
+                  className={`px-2.5 py-1.5 transition-colors duration-200 ${
+                    language === code
+                      ? scrolled
+                        ? 'bg-primary text-white'
+                        : 'bg-white text-primary'
+                      : scrolled
+                      ? 'text-slate-muted hover:text-primary'
+                      : 'text-white/70 hover:text-white'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
             <a
               href="#contato"
               className={`ml-2 px-5 py-2 text-sm font-semibold tracking-wide border transition-all duration-200 ${
@@ -62,7 +97,7 @@ export function Navbar() {
                   : 'border-white text-white hover:bg-white hover:text-primary'
               }`}
             >
-              Fale Conosco
+              {t.navbar.cta}
             </a>
           </nav>
 
@@ -98,12 +133,35 @@ export function Navbar() {
                   {label}
                 </a>
               ))}
+
+              {/* Mobile language switcher */}
+              <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+                <span className="font-body text-xs text-slate-muted uppercase tracking-widest">
+                  Idioma
+                </span>
+                <div className="flex items-center gap-px border border-gray-200 text-xs font-semibold">
+                  {LANG_OPTIONS.map(({ code, label }) => (
+                    <button
+                      key={code}
+                      onClick={() => setLanguage(code)}
+                      className={`px-2.5 py-1.5 transition-colors ${
+                        language === code
+                          ? 'bg-primary text-white'
+                          : 'text-slate-muted hover:text-primary'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <a
                 href="#contato"
                 onClick={() => setOpen(false)}
                 className="mt-2 px-5 py-2 text-sm font-semibold text-center border border-primary text-primary hover:bg-primary hover:text-white transition-all"
               >
-                Fale Conosco
+                {t.navbar.cta}
               </a>
             </div>
           </motion.div>

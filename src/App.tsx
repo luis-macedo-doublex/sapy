@@ -1,3 +1,4 @@
+import { LanguageProvider } from './contexts/LanguageContext'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
@@ -10,7 +11,7 @@ import { FloatingContact } from './components/FloatingContact'
 
 export default function App() {
   return (
-    <>
+    <LanguageProvider>
       <Navbar />
       <main>
         <Hero />
@@ -22,6 +23,6 @@ export default function App() {
       </main>
       <Footer />
       <FloatingContact />
-    </>
+    </LanguageProvider>
   )
 }

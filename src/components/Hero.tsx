@@ -1,13 +1,11 @@
 import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
-
-const STATS = [
-  { value: '15+', label: 'Anos de Experiência' },
-  { value: '200+', label: 'Projetos Entregues' },
-  { value: '3', label: 'Países de Atuação' },
-]
+import { useLanguage } from '../contexts/LanguageContext'
 
 export function Hero() {
+  const { t } = useLanguage()
+  const { hero } = t
+
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-primary dot-grid-blue">
       {/* Geometric accent shapes */}
@@ -15,7 +13,6 @@ export function Hero() {
         <div className="absolute top-0 right-0 w-[45vw] h-full bg-primary-dark/40 clip-diagonal" />
         <div className="absolute bottom-0 left-0 w-72 h-72 border border-white/10 rounded-full translate-y-1/2 -translate-x-1/2" />
         <div className="absolute top-1/3 right-12 w-40 h-40 border border-white/10 rounded-full" />
-        {/* Horizontal rule accent */}
         <div className="absolute top-1/2 left-0 w-1/3 h-px bg-white/15" />
       </div>
 
@@ -30,7 +27,7 @@ export function Hero() {
           >
             <div className="w-10 h-px bg-white/60" />
             <span className="font-body text-xs font-semibold tracking-[0.2em] text-white/70 uppercase">
-              Engenharia de Alta Performance
+              {hero.eyebrow}
             </span>
           </motion.div>
 
@@ -41,7 +38,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="font-display text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold leading-none text-white tracking-tight mb-4"
           >
-            SOLUÇÕES
+            {hero.line1}
           </motion.h1>
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
@@ -49,7 +46,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="font-display text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold leading-none outline-white tracking-tight mb-4"
           >
-            EM AUTOMAÇÃO
+            {hero.line2}
           </motion.h1>
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
@@ -57,7 +54,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="font-display text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold leading-none text-white tracking-tight"
           >
-            INDUSTRIAL
+            {hero.line3}
           </motion.h1>
 
           {/* Subtitle */}
@@ -67,8 +64,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.55 }}
             className="font-body text-base lg:text-lg text-white/70 mt-8 max-w-xl leading-relaxed"
           >
-            Unindo expertise ibérica e inovação brasileira para transformar processos industriais
-            com tecnologia de ponta.
+            {hero.subtitle}
           </motion.p>
 
           {/* CTA */}
@@ -82,13 +78,13 @@ export function Hero() {
               href="#servicos"
               className="inline-flex items-center gap-2 bg-white text-primary px-7 py-3.5 text-sm font-semibold tracking-wide hover:bg-gray-100 transition-colors duration-200"
             >
-              Conheça Nossos Serviços
+              {hero.cta1}
             </a>
             <a
               href="#contato"
               className="inline-flex items-center gap-2 border border-white/60 text-white px-7 py-3.5 text-sm font-semibold tracking-wide hover:border-white hover:bg-white/10 transition-all duration-200"
             >
-              Fale com um Especialista
+              {hero.cta2}
             </a>
           </motion.div>
         </div>
@@ -100,7 +96,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.9 }}
           className="mt-20 pt-10 border-t border-white/20 grid grid-cols-3 gap-6 lg:gap-12 max-w-2xl"
         >
-          {STATS.map(({ value, label }) => (
+          {hero.stats.map(({ value, label }) => (
             <div key={label}>
               <div className="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight">
                 {value}

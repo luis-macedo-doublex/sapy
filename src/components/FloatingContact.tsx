@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export function FloatingContact() {
+  const { t } = useLanguage()
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -15,7 +17,7 @@ export function FloatingContact() {
             transition={{ duration: 0.2 }}
             className="bg-white text-slate-text text-xs font-semibold px-3 py-2 shadow-md border border-gray-100 whitespace-nowrap"
           >
-            Fale pelo WhatsApp
+            {t.floating.tooltip}
           </motion.span>
         )}
       </AnimatePresence>
@@ -24,7 +26,7 @@ export function FloatingContact() {
         href="https://wa.me/5511000000000"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Contato via WhatsApp"
+        aria-label={t.floating.ariaLabel}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: 'spring', stiffness: 260, damping: 20 }}
