@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+  body {
+    background: #ffffff;
+    color: #211d1f;
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: #3e4a9b; color: #fff; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #f0f0f8; }
+  ::-webkit-scrollbar-thumb { background: #3e4a9b; }
+}
+
+@layer utilities {
+  /* Outlined heading — on white/light backgrounds */
+  .outline-primary {
+    -webkit-text-stroke: 2px #3e4a9b;
+    color: transparent;
+  }
+
+  /* Outlined heading — on blue backgrounds */
+  .outline-white {
+    -webkit-text-stroke: 2px rgba(255,255,255,0.55);
+    color: transparent;
+  }
+
+  /* Subtle engineering dot-grid on blue */
+  .dot-grid-blue {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Subtle line-grid on white */
+  .line-grid-white {
+    background-image:
+      linear-gradient(rgba(62,74,155,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(62,74,155,0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .marquee-pause:hover .marquee-track { animation-play-state: paused; }
+
+  /* Diagonal clip for hero background accent */
+  .clip-diagonal {
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+}
