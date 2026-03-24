@@ -48,6 +48,17 @@
 
   .marquee-pause:hover .marquee-track { animation-play-state: paused; }
 
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
   /* Diagonal clip for hero background accent */
   .clip-diagonal {
     clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);

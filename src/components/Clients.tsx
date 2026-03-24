@@ -2,33 +2,42 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { useLanguage } from '../contexts/LanguageContext'
 
-type Client = { name: string; sector: string; flag: string; country: string }
+import adm from '../images/empresas/adm.png'
+import atvos from '../images/empresas/atvos.png'
+import bunge from '../images/empresas/bunge.png'
+import cooperbio from '../images/empresas/cooperbio.png'
+import delta from '../images/empresas/delta.png'
+import fenix from '../images/empresas/fenix.png'
+import longping from '../images/empresas/longping.png'
+import mosaic from '../images/empresas/mosaic.png'
+import nutrien from '../images/empresas/nutrien.png'
+import petrobras from '../images/empresas/petrobras.png'
+import raizen from '../images/empresas/raizen.png'
+import sada from '../images/empresas/sada.png'
+import saomartinho from '../images/empresas/saomartinho.png'
+import tereos from '../images/empresas/tereos.png'
+import vale from '../images/empresas/vale.png'
+import weg from '../images/empresas/weg.png'
 
-const clients: Client[] = [
-  { name: 'Vale Mosaic', sector: 'Fertilizantes', flag: '🇧🇷', country: 'Brasil' },
-  { name: 'ADM', sector: 'Processamento de Soja', flag: '🇧🇷', country: 'Brasil' },
-  { name: 'Adimax', sector: 'Alimentação Animal', flag: '🇧🇷', country: 'Brasil' },
-  { name: 'GS Inima', sector: 'Saneamento', flag: '🇧🇷', country: 'Brasil' },
-  { name: 'UFV 455MW', sector: 'Energia Solar', flag: '🇧🇷', country: 'Brasil' },
-  { name: 'SENAI', sector: 'Educação Industrial', flag: '🇧🇷', country: 'Brasil' },
-  { name: 'Biocom', sector: 'Sucroenergético', flag: '🇦🇴', country: 'Angola' },
-  { name: 'CADASA', sector: 'Usina de Açúcar', flag: '🇵🇦', country: 'Panamá' },
-  { name: 'Ingenio Alianza', sector: 'Sucroenergético', flag: '🇲🇽', country: 'México' },
-  { name: 'MATSA', sector: 'Mineração', flag: '🇪🇸', country: 'Espanha' },
-  { name: 'Zabeel Mall', sector: 'Infraestrutura', flag: '🇦🇪', country: 'Emirados Árabes' },
-  { name: 'Projeto ZEP', sector: 'Energia', flag: '🇧🇷', country: 'Brasil' },
+const clientLogos = [
+  { name: 'Vale', src: vale },
+  { name: 'Mosaic', src: mosaic },
+  { name: 'Nutrien', src: nutrien },
+  { name: 'Petrobras', src: petrobras },
+  { name: 'Raízen', src: raizen },
+  { name: 'São Martinho', src: saomartinho },
+  { name: 'Tereos', src: tereos },
+  { name: 'WEG', src: weg },
+  { name: 'Delta', src: delta },
+  { name: 'Cooperbio', src: cooperbio },
+  { name: 'Long Ping', src: longping },
+  { name: 'Fênix', src: fenix },
+  { name: 'SADA', src: sada },
+  { name: 'ADM', src: adm },
+  { name: 'Atvos', src: atvos },
+  { name: 'Bunge', src: bunge },
 ]
 
-const presenceCountries = [
-  { flag: '🇧🇷', name: 'Brasil' },
-  { flag: '🇦🇴', name: 'Angola' },
-  { flag: '🇵🇦', name: 'Panamá' },
-  { flag: '🇲🇽', name: 'México' },
-  { flag: '🇪🇸', name: 'Espanha' },
-  { flag: '🇵🇾', name: 'Paraguai' },
-  { flag: '🇺🇾', name: 'Uruguai' },
-  { flag: '🇦🇪', name: 'Emirados Árabes' },
-]
 
 export function Clients() {
   const { t } = useLanguage()
@@ -74,50 +83,34 @@ export function Clients() {
           </div>
         </div>
 
-        {/* Client grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-12">
-          {clients.map((client, i) => (
-            <motion.div
-              key={client.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + i * 0.05 }}
-              className="bg-white border border-gray-100 hover:border-primary/20 p-4 transition-colors duration-200"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xl leading-none">{client.flag}</span>
-                <span className="font-body text-xs text-slate-muted">{client.country}</span>
-              </div>
-              <div className="font-display text-sm font-bold text-slate-text leading-tight mb-1">
-                {client.name}
-              </div>
-              <div className="font-body text-xs text-slate-muted">{client.sector}</div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Geographic presence strip */}
+        {/* Client logo carousel */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="border-t border-gray-200 pt-8"
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="relative mb-12 overflow-hidden marquee-pause"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-6 h-px bg-primary/40" />
-            <span className="font-body text-xs font-semibold tracking-[0.15em] text-slate-muted uppercase">
-              {ct.presenceLabel}
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            {presenceCountries.map((c) => (
-              <div key={c.name} className="flex items-center gap-1.5">
-                <span className="text-base leading-none">{c.flag}</span>
-                <span className="font-body text-xs text-slate-muted">{c.name}</span>
+          {/* fade edges */}
+          <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none" />
+
+          <div className="marquee-track">
+            {[...clientLogos, ...clientLogos].map((client, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 flex items-center justify-center bg-white border-r border-gray-100 hover:bg-gray-50 transition-colors duration-200"
+                style={{ width: '200px', padding: '28px 32px' }}
+              >
+                <img
+                  src={client.src}
+                  alt={client.name}
+                  className="h-14 w-full object-contain grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"
+                />
               </div>
             ))}
           </div>
         </motion.div>
+
       </div>
     </section>
   )
