@@ -3,6 +3,37 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
 
+import imgValeMosaic from '../images/projetos/vale-mosaic.jpg'
+import imgUfv from '../images/projetos/ufv-455mw.jpg'
+import imgCitrusJuice from '../images/projetos/citrus-juice.jpg'
+import imgBiocom from '../images/projetos/biocom.jpg'
+import imgAdm from '../images/projetos/adm.jpg'
+import imgGsInima from '../images/projetos/gs-inima.jpg'
+import imgMatsa from '../images/projetos/matsa.jpg'
+import imgCadasa from '../images/projetos/cadasa.jpg'
+
+const caseImages: Record<string, string> = {
+  'case-01': imgValeMosaic,
+  'case-02': imgUfv,
+  'case-03': imgCitrusJuice,
+  'case-04': imgBiocom,
+  'case-05': imgAdm,
+  'case-06': imgGsInima,
+  'case-07': imgMatsa,
+  'case-08': imgCadasa,
+}
+
+const caseCountries: Record<string, { flag: string; name: string }> = {
+  'case-01': { flag: '🇧🇷', name: 'Brasil' },
+  'case-02': { flag: '🇧🇷', name: 'Brasil' },
+  'case-03': { flag: '🇧🇷', name: 'Brasil' },
+  'case-04': { flag: '🇦🇴', name: 'Angola' },
+  'case-05': { flag: '🇧🇷', name: 'Brasil' },
+  'case-06': { flag: '🇧🇷', name: 'Brasil' },
+  'case-07': { flag: '🇪🇸', name: 'Espanha' },
+  'case-08': { flag: '🇵🇦', name: 'Panamá' },
+}
+
 export function Cases() {
   const { t } = useLanguage()
   const { cases } = t
@@ -98,16 +129,32 @@ export function Cases() {
                 >
                   {/* Card header — always visible */}
                   <div
-                    className="p-6 lg:p-8 cursor-pointer"
+                    className="cursor-pointer"
                     onClick={() => setExpandedCase(isExpanded ? null : item.id)}
                   >
-                    <div className="flex items-start justify-between gap-6">
-                      <div className="flex-1">
-                        {/* Sector badge + metric */}
+                    <div className="flex items-stretch justify-between gap-0">
+                      {/* Project photo */}
+                      {caseImages[item.id] && (
+                        <div className="hidden sm:block w-48 lg:w-64 shrink-0 overflow-hidden">
+                          <img
+                            src={caseImages[item.id]}
+                            alt={item.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 p-6 lg:p-8">
+                        {/* Sector badge + country + metric */}
                         <div className="flex flex-wrap items-center gap-3 mb-4">
                           <span className="px-2.5 py-1 text-xs font-semibold tracking-wide bg-primary/8 text-primary border border-primary/15">
                             {item.sector}
                           </span>
+                          {caseCountries[item.id] && (
+                            <span className="flex items-center gap-1.5 text-xs text-slate-muted">
+                              <span className="text-base leading-none">{caseCountries[item.id].flag}</span>
+                              {caseCountries[item.id].name}
+                            </span>
+                          )}
                           <div className="flex items-center gap-2">
                             <span className="font-display text-2xl font-bold text-primary">
                               {item.metric.value}
@@ -136,7 +183,7 @@ export function Cases() {
                       </div>
 
                       {/* Expand toggle */}
-                      <button className="shrink-0 p-2 text-slate-muted hover:text-primary transition-colors mt-1">
+                      <button className="shrink-0 p-4 text-slate-muted hover:text-primary transition-colors self-start mt-4">
                         {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                       </button>
                     </div>
