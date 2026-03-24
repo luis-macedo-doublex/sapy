@@ -66,16 +66,6 @@ export function About() {
               {about.p2}
             </motion.p>
 
-            {/* Highlight metric */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.6 }}
-              className="mt-10 pl-6 border-l-2 border-primary"
-            >
-              <div className="font-display text-5xl font-bold text-primary">100%</div>
-              <div className="font-body text-sm text-slate-muted mt-1">{about.metric}</div>
-            </motion.div>
           </div>
 
           {/* Right: pillars */}

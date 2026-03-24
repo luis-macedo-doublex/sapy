@@ -89,10 +89,10 @@ export function Contact() {
                       {contact.emailLabel}
                     </div>
                     <a
-                      href="mailto:contato@sapyamericalatina.com"
+                      href="mailto:comercial@authomathika.com.br"
                       className="font-body text-sm text-white hover:text-white/80 transition-colors"
                     >
-                      contato@sapyamericalatina.com
+                      comercial@authomathika.com.br
                     </a>
                   </div>
                 </div>
@@ -106,10 +106,10 @@ export function Contact() {
                       {contact.phoneLabel}
                     </div>
                     <a
-                      href="tel:+5511000000000"
+                      href="tel:+5516999945002"
                       className="font-body text-sm text-white hover:text-white/80 transition-colors"
                     >
-                      +55 (11) 0000-0000
+                      (16) 99994-5002 / 99223-6031
                     </a>
                   </div>
                 </div>
@@ -126,6 +126,8 @@ export function Contact() {
                       {contact.location1}
                       <br />
                       <span className="text-white/60">{contact.location2}</span>
+                      <br />
+                      <span className="text-white/60">{contact.location3}</span>
                     </span>
                   </div>
                 </div>
@@ -135,7 +137,7 @@ export function Contact() {
             {/* WhatsApp CTA */}
             <div className="mt-10 pt-8 border-t border-white/20">
               <a
-                href="https://wa.me/5511000000000"
+                href="https://wa.me/5516999945002"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 bg-white text-primary px-6 py-3 text-sm font-semibold tracking-wide hover:bg-gray-100 transition-colors w-full"

@@ -1,15 +1,106 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
-import logoSrc from '../images/sapyamericalatina_logo.jpeg'
+import { Menu, X, ChevronDown, Check } from 'lucide-react'
+import logoSrc from '../images/Logo SAP.jpg'
 import { useLanguage } from '../contexts/LanguageContext'
 import type { Language } from '../i18n/translations'
 
-const LANG_OPTIONS: { code: Language; label: string }[] = [
-  { code: 'pt', label: 'PT' },
-  { code: 'es', label: 'ES' },
-  { code: 'en', label: 'EN' },
+const LANG_OPTIONS: { code: Language; flag: string; label: string; short: string }[] = [
+  { code: 'pt', flag: '🇧🇷', label: 'Português', short: 'PT' },
+  { code: 'es', flag: '🇪🇸', label: 'Español',   short: 'ES' },
+  { code: 'en', flag: '🇺🇸', label: 'English',   short: 'EN' },
 ]
+
+function LanguageSwitcher({ scrolled }: { scrolled: boolean }) {
+  const { language, setLanguage } = useLanguage()
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const current = LANG_OPTIONS.find((l) => l.code === language)!
+
+  // close on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  return (
+    <div ref={ref} className="relative">
+      {/* Trigger button */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        className={`
+          flex items-center gap-2 px-3 py-1.5 rounded-sm
+          font-body text-xs font-semibold tracking-widest uppercase
+          transition-all duration-200 select-none outline-none
+          ${scrolled
+            ? 'text-slate-text hover:text-primary hover:bg-primary/5'
+            : 'text-white/80 hover:text-white hover:bg-white/10'
+          }
+        `}
+      >
+        <span className="text-base leading-none">{current.flag}</span>
+        <span>{current.short}</span>
+        <motion.span
+          animate={{ rotate: open ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex items-center"
+        >
+          <ChevronDown size={12} strokeWidth={2.5} />
+        </motion.span>
+      </button>
+
+      {/* Dropdown */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            role="listbox"
+            initial={{ opacity: 0, y: -6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="
+              absolute right-0 top-full mt-2 w-40
+              bg-white border border-gray-100
+              shadow-[0_8px_24px_rgba(0,0,0,0.12)]
+              overflow-hidden z-50
+            "
+          >
+            {LANG_OPTIONS.map(({ code, flag, label }) => {
+              const isActive = language === code
+              return (
+                <button
+                  key={code}
+                  role="option"
+                  aria-selected={isActive}
+                  onClick={() => { setLanguage(code); setOpen(false) }}
+                  className={`
+                    w-full flex items-center gap-3 px-4 py-3
+                    font-body text-sm transition-colors duration-150
+                    ${isActive
+                      ? 'bg-primary/5 text-primary font-semibold'
+                      : 'text-slate-text hover:bg-gray-50 font-normal'
+                    }
+                  `}
+                >
+                  <span className="text-lg leading-none shrink-0">{flag}</span>
+                  <span className="flex-1 text-left">{label}</span>
+                  {isActive && (
+                    <Check size={13} strokeWidth={2.5} className="text-primary shrink-0" />
+                  )}
+                </button>
+              )
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 export function Navbar() {
   const { t, language, setLanguage } = useLanguage()
@@ -17,11 +108,11 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
 
   const links = [
-    { label: t.navbar.about, href: '#sobre' },
-    { label: t.navbar.companies, href: '#empresas' },
-    { label: t.navbar.services, href: '#servicos' },
-    { label: t.navbar.differentials, href: '#diferenciais' },
-    { label: t.navbar.contact, href: '#contato' },
+    { label: t.navbar.about,    href: '#sobre'       },
+    { label: t.navbar.sectors,  href: '#setores'     },
+    { label: t.navbar.services, href: '#servicos'    },
+    { label: t.navbar.cases,    href: '#projetos'    },
+    { label: t.navbar.contact,  href: '#contato'     },
   ]
 
   useEffect(() => {
@@ -64,30 +155,7 @@ export function Navbar() {
               </a>
             ))}
 
-            {/* Language switcher */}
-            <div
-              className={`flex items-center gap-px text-xs font-semibold tracking-wider border ${
-                scrolled ? 'border-gray-200' : 'border-white/30'
-              }`}
-            >
-              {LANG_OPTIONS.map(({ code, label }) => (
-                <button
-                  key={code}
-                  onClick={() => setLanguage(code)}
-                  className={`px-2.5 py-1.5 transition-colors duration-200 ${
-                    language === code
-                      ? scrolled
-                        ? 'bg-primary text-white'
-                        : 'bg-white text-primary'
-                      : scrolled
-                      ? 'text-slate-muted hover:text-primary'
-                      : 'text-white/70 hover:text-white'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+            <LanguageSwitcher scrolled={scrolled} />
 
             <a
               href="#contato"
@@ -135,24 +203,33 @@ export function Navbar() {
               ))}
 
               {/* Mobile language switcher */}
-              <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
-                <span className="font-body text-xs text-slate-muted uppercase tracking-widest">
+              <div className="pt-3 border-t border-gray-100">
+                <p className="font-body text-xs text-slate-muted uppercase tracking-widest mb-3">
                   Idioma
-                </span>
-                <div className="flex items-center gap-px border border-gray-200 text-xs font-semibold">
-                  {LANG_OPTIONS.map(({ code, label }) => (
-                    <button
-                      key={code}
-                      onClick={() => setLanguage(code)}
-                      className={`px-2.5 py-1.5 transition-colors ${
-                        language === code
-                          ? 'bg-primary text-white'
-                          : 'text-slate-muted hover:text-primary'
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  ))}
+                </p>
+                <div className="flex gap-2">
+                  {LANG_OPTIONS.map(({ code, flag, label }) => {
+                    const isActive = language === code
+                    return (
+                      <button
+                        key={code}
+                        onClick={() => setLanguage(code)}
+                        className={`
+                          flex-1 flex flex-col items-center gap-1.5 py-3 border text-center
+                          transition-all duration-200
+                          ${isActive
+                            ? 'border-primary bg-primary/5 text-primary'
+                            : 'border-gray-200 text-slate-muted hover:border-primary/40 hover:text-primary'
+                          }
+                        `}
+                      >
+                        <span className="text-xl leading-none">{flag}</span>
+                        <span className="font-body text-xs font-semibold tracking-widest uppercase">
+                          {label}
+                        </span>
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
 

@@ -62,6 +62,9 @@ export function Footer() {
               <li>
                 <span className="font-body text-sm text-white/70">{footer.location2}</span>
               </li>
+              <li>
+                <span className="font-body text-sm text-white/70">{footer.location3}</span>
+              </li>
             </ul>
           </div>
         </div>

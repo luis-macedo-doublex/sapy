@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
-import { ArrowDown } from 'lucide-react'
+import { ArrowDown, Download } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
+import pdfUrl from '../images/SAPY.pdf'
 
 export function Hero() {
   const { t } = useLanguage()
@@ -72,19 +73,29 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.7 }}
-            className="flex flex-wrap gap-4 mt-10"
+            className="flex flex-col gap-4 mt-10"
           >
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="#projetos"
+                className="inline-flex items-center gap-2 bg-white text-primary px-7 py-3.5 text-sm font-semibold tracking-wide hover:bg-gray-100 transition-colors duration-200"
+              >
+                {hero.cta1}
+              </a>
+              <a
+                href="#contato"
+                className="inline-flex items-center gap-2 border border-white/60 text-white px-7 py-3.5 text-sm font-semibold tracking-wide hover:border-white hover:bg-white/10 transition-all duration-200"
+              >
+                {hero.cta2}
+              </a>
+            </div>
             <a
-              href="#servicos"
-              className="inline-flex items-center gap-2 bg-white text-primary px-7 py-3.5 text-sm font-semibold tracking-wide hover:bg-gray-100 transition-colors duration-200"
+              href={pdfUrl}
+              download
+              className="inline-flex items-center gap-2 text-white/50 hover:text-white/80 text-xs font-medium tracking-wide transition-colors duration-200 w-fit"
             >
-              {hero.cta1}
-            </a>
-            <a
-              href="#contato"
-              className="inline-flex items-center gap-2 border border-white/60 text-white px-7 py-3.5 text-sm font-semibold tracking-wide hover:border-white hover:bg-white/10 transition-all duration-200"
-            >
-              {hero.cta2}
+              <Download size={13} />
+              {hero.downloadPdf}
             </a>
           </motion.div>
         </div>
@@ -94,7 +105,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-20 pt-10 border-t border-white/20 grid grid-cols-3 gap-6 lg:gap-12 max-w-2xl"
+          className="mt-20 pt-10 border-t border-white/20 grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-10 max-w-3xl"
         >
           {hero.stats.map(({ value, label }) => (
             <div key={label}>
