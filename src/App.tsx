@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
@@ -12,10 +13,11 @@ import { Differentials } from './components/Differentials'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { FloatingContact } from './components/FloatingContact'
+import { ProjectsPage } from './pages/ProjectsPage'
 
-export default function App() {
+function HomePage() {
   return (
-    <LanguageProvider>
+    <>
       <Navbar />
       <main>
         <Hero />
@@ -31,6 +33,19 @@ export default function App() {
       </main>
       <Footer />
       <FloatingContact />
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projetos" element={<ProjectsPage />} />
+        </Routes>
+      </BrowserRouter>
     </LanguageProvider>
   )
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, Check } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
 import logoSrc from '../images/Logo SAP.jpg'
 import { useLanguage } from '../contexts/LanguageContext'
 import type { Language } from '../i18n/translations'
@@ -106,13 +107,15 @@ export function Navbar() {
   const { t, language, setLanguage } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
+  const prefix = pathname === '/' ? '' : '/'
 
   const links = [
-    { label: t.navbar.about,    href: '#sobre'       },
-    { label: t.navbar.sectors,  href: '#setores'     },
-    { label: t.navbar.services, href: '#servicos'    },
-    { label: t.navbar.cases,    href: '#projetos'    },
-    { label: t.navbar.contact,  href: '#contato'     },
+    { label: t.navbar.about,    href: `${prefix}#sobre`    },
+    { label: t.navbar.sectors,  href: `${prefix}#setores`  },
+    { label: t.navbar.services, href: `${prefix}#servicos` },
+    { label: t.navbar.cases,    href: `${prefix}#projetos` },
+    { label: t.navbar.contact,  href: `${prefix}#contato`  },
   ]
 
   useEffect(() => {
@@ -133,7 +136,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 shrink-0">
+          <a href={prefix || '/'} className="flex items-center gap-3 shrink-0">
             <div className="bg-white rounded p-1 shadow-sm">
               <img src={logoSrc} alt="SAPY América Latina" className="h-10 w-auto" />
             </div>
@@ -158,7 +161,7 @@ export function Navbar() {
             <LanguageSwitcher scrolled={scrolled} />
 
             <a
-              href="#contato"
+              href={`${prefix}#contato`}
               className={`ml-2 px-5 py-2 text-sm font-semibold tracking-wide border transition-all duration-200 ${
                 scrolled
                   ? 'border-primary text-primary hover:bg-primary hover:text-white'
@@ -234,7 +237,7 @@ export function Navbar() {
               </div>
 
               <a
-                href="#contato"
+                href={`${prefix}#contato`}
                 onClick={() => setOpen(false)}
                 className="mt-2 px-5 py-2 text-sm font-semibold text-center border border-primary text-primary hover:bg-primary hover:text-white transition-all"
               >

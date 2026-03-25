@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowRight, ChevronDown, ChevronUp } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
@@ -155,14 +156,6 @@ export function Cases() {
                               {caseCountries[item.id].name}
                             </span>
                           )}
-                          <div className="flex items-center gap-2">
-                            <span className="font-display text-2xl font-bold text-primary">
-                              {item.metric.value}
-                            </span>
-                            <span className="font-body text-xs text-slate-muted">
-                              {item.metric.label}
-                            </span>
-                          </div>
                         </div>
 
                         <h3 className="font-display text-xl lg:text-2xl font-bold text-slate-text tracking-tight mb-3">
@@ -259,6 +252,22 @@ export function Cases() {
             })}
           </AnimatePresence>
         </div>
+
+        {/* Ver mais */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-10 flex justify-center"
+        >
+          <Link
+            to="/projetos"
+            className="inline-flex items-center gap-2 border border-primary text-primary px-8 py-3.5 text-sm font-semibold tracking-wide hover:bg-primary hover:text-white transition-colors duration-200"
+          >
+            Ver mais projetos
+            <ArrowRight size={16} />
+          </Link>
+        </motion.div>
       </div>
     </section>
   )
