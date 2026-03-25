@@ -56,13 +56,16 @@ export function Footer() {
                   contato@sapyamericalatina.com
                 </a>
               </li>
-              <li>
+              <li className="flex items-center gap-2">
+                <span className="text-base leading-none">🇧🇷</span>
                 <span className="font-body text-sm text-white/70">{footer.location1}</span>
               </li>
-              <li>
+              <li className="flex items-center gap-2">
+                <span className="text-base leading-none">🇪🇸</span>
                 <span className="font-body text-sm text-white/70">{footer.location2}</span>
               </li>
-              <li>
+              <li className="flex items-center gap-2">
+                <span className="text-base leading-none">🇵🇾</span>
                 <span className="font-body text-sm text-white/70">{footer.location3}</span>
               </li>
             </ul>

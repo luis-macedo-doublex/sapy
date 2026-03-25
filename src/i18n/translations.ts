@@ -396,6 +396,7 @@ export const translations = {
           '20+ unidades operacionais na Espanha e Brasil',
         ],
         link: null,
+        linkLabel: 'Saiba mais',
       },
       authomathika: {
         tag: 'Inovação Brasileira',
@@ -890,6 +891,7 @@ export const translations = {
           '20+ unidades operacionales en España y Brasil',
         ],
         link: null,
+        linkLabel: 'Saber más',
       },
       authomathika: {
         tag: 'Innovación Brasileña',
@@ -1384,6 +1386,7 @@ export const translations = {
           '20+ operational units in Spain and Brazil',
         ],
         link: null,
+        linkLabel: 'Learn more',
       },
       authomathika: {
         tag: 'Brazilian Innovation',

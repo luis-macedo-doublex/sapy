@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, Download } from 'lucide-react'
+import { ArrowDown } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
-import pdfUrl from '../images/SAPY.pdf'
 
 export function Hero() {
   const { t } = useLanguage()
@@ -89,14 +88,6 @@ export function Hero() {
                 {hero.cta2}
               </a>
             </div>
-            <a
-              href={pdfUrl}
-              download
-              className="inline-flex items-center gap-2 text-white/50 hover:text-white/80 text-xs font-medium tracking-wide transition-colors duration-200 w-fit"
-            >
-              <Download size={13} />
-              {hero.downloadPdf}
-            </a>
           </motion.div>
         </div>
 

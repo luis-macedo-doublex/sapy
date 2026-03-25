@@ -40,8 +40,8 @@ export function Companies() {
       origin: companies.savilcon.origin,
       description: companies.savilcon.description,
       highlights: companies.savilcon.highlights,
-      link: null as string | null,
-      linkLabel: null as string | null,
+      link: 'https://www.savilcon.com' as string | null,
+      linkLabel: companies.savilcon.linkLabel as string | null,
     },
     {
       id: 'authomathika',
@@ -167,12 +167,12 @@ export function Companies() {
               </ul>
 
               {link && linkLabel && (
-                <div className="mt-8 pt-6 border-t border-gray-100">
+                <div className={`mt-8 pt-6 border-t ${id === 'savilcon' ? 'border-white/20' : 'border-gray-100'}`}>
                   <a
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors group/link"
+                    className={`inline-flex items-center gap-2 text-sm font-semibold transition-colors group/link ${id === 'savilcon' ? 'text-white/70 hover:text-white' : 'text-primary hover:text-primary-dark'}`}
                   >
                     {linkLabel}
                     <ArrowUpRight

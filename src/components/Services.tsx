@@ -54,7 +54,7 @@ export function Services() {
         </div>
 
         {/* Services grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+        <div className="grid sm:grid-cols-2 gap-px bg-white/10">
           {services.items.map(({ number, title, text, tags }, i) => {
             const Icon = ICONS[i]
             return (

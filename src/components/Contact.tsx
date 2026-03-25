@@ -109,7 +109,7 @@ export function Contact() {
                       href="tel:+5516999945002"
                       className="font-body text-sm text-white hover:text-white/80 transition-colors"
                     >
-                      (16) 99994-5002 / 99223-6031
+                      +55 (16) 99994-5002 / 99223-6031
                     </a>
                   </div>
                 </div>
